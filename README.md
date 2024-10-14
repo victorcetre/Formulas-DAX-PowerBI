@@ -1,4 +1,4 @@
-# Repositorio Personal de Fórmulas DAX para Power BI
+# Repositorio de Fórmulas DAX para Power BI
 
 Bienvenido a mi repositorio personal, donde he organizado una colección completa de fórmulas DAX diseñadas para facilitar la creación de informes, paneles y proyectos en Power BI. Las fórmulas están categorizadas para una consulta rápida y eficiente, permitiendo reutilizarlas en diferentes proyectos.
 
