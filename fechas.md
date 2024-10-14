@@ -34,8 +34,9 @@ Dim_Calendar DAX = ADDCOLUMNS (
   "InicioMes", EOMONTH( [Date], -1) + 1,               -- Primer día del mes
   "FinMes", EOMONTH( [Date], 0)                        -- Último día del mes
 )
-```DAX Sin Comentarios
+```
 
+```DAX Sin Comentarios
 Dim_Calendar DAX = ADDCOLUMNS (
   CALENDAR (
     DATE( YEAR ( MIN ( [Fecha Inicial] )), 01, 01),   
