@@ -150,3 +150,112 @@ Para visualizar rápidamente cuántas horas disponibles tiene un consultor en un
 ## Conclusión
 
 Este informe presenta un sistema flexible y robusto para gestionar la disponibilidad de consultores en Power BI, considerando tanto asignaciones de proyectos como ausencias parciales y festivos. Con la implementación de este calendario personalizado y las visualizaciones adecuadas, los líderes de proyectos podrán planificar mejor los recursos y gestionar la carga de trabajo de los consultores de manera eficiente.
+
+
+Informe de Propuesta para la Gestión de Disponibilidad de Consultores en Power BI
+Introducción
+Este informe detalla la estrategia propuesta para gestionar la disponibilidad de consultores en proyectos, incorporando ausencias parciales (como permisos médicos) y ausencias completas (como vacaciones). La solución tiene como objetivo optimizar la asignación de recursos, mejorar la planificación de proyectos y facilitar la toma de decisiones en la gestión de equipos.
+
+1. Objetivo
+El objetivo principal es crear un sistema eficiente de registro y cálculo de la disponibilidad de los consultores en función de:
+
+Asignaciones de proyectos y roles.
+Ausencias parciales y completas, como permisos médicos, citas y vacaciones.
+El sistema permitirá:
+
+Determinar si un consultor está disponible para asignaciones en función de su carga de trabajo y ausencias.
+Controlar la necesidad de contratación de nuevos recursos según las demandas de los roles.
+Visualizar la disponibilidad y las ausencias del equipo de manera clara y accesible.
+2. Proceso General
+2.1. Disponibilidad Base Semanal
+Cada consultor tiene una disponibilidad base estándar de 40 horas por semana, que puede variar en función de asignaciones de roles y proyectos, así como de ausencias registradas (vacaciones, permisos).
+
+2.2. Registro de Asignaciones por Proyecto y Rol
+La asignación de horas a proyectos y roles se registra semanalmente para cada consultor. Por ejemplo:
+
+Consultor A tiene asignadas 15 horas para el Rol 1 y 10 horas para el Rol 2.
+La disponibilidad restante del consultor se calcula restando las horas asignadas de las 40 horas base:
+Disponibilidad restante
+=
+40
+−
+(
+Horas Rol 1
++
+Horas Rol 2
+)
+Disponibilidad restante=40−(Horas Rol 1+Horas Rol 2)
+2.3. Registro de Ausencias
+Para gestionar ausencias parciales (citas médicas, permisos por horas) y ausencias completas (vacaciones), se propone una tabla de ausencias centralizada que contiene los siguientes campos:
+
+Consultor: Nombre o ID.
+Tipo de Ausencia: Vacaciones, cita médica, permiso personal, etc.
+Fecha de Inicio y Fin: El período de la ausencia.
+Horas Perdidas: En el caso de ausencias parciales, se registra cuántas horas el consultor no estará disponible.
+Comentarios Adicionales: Para especificar detalles adicionales del permiso.
+Ejemplo de la tabla de ausencias:
+
+Consultor	Tipo de Ausencia	Fecha de Inicio	Fecha de Fin	Horas Perdidas	Comentarios
+Consultor X	Vacaciones	14-Oct	18-Oct	N/A	Vacaciones anuales
+Consultor Y	Cita médica	15-Oct	15-Oct	2 horas	De 2 PM a 4 PM
+Consultor Z	Permiso personal	13-Oct	13-Oct	1 hora	Cita personal
+3. Cálculos y Procedimientos
+3.1. Disponibilidad Total Semanal
+La disponibilidad semanal total de cada consultor se calcula restando las horas asignadas y las horas de ausencia de las 40 horas base.
+
+Fórmula de Disponibilidad Semanal:
+
+Disponibilidad semanal
+=
+40
+−
+(
+Horas asignadas a proyectos
++
+Horas de ausencias
+)
+Disponibilidad semanal=40−(Horas asignadas a proyectos+Horas de ausencias)
+3.2. Gestión de Roles Múltiples
+Si un consultor tiene asignaciones en múltiples roles, el sistema debe sumar las horas asignadas a cada rol y luego calcular la disponibilidad restante. Si un consultor ya tiene 35 horas asignadas a dos roles, por ejemplo, solo tendrá 5 horas disponibles para cualquier otro rol adicional.
+
+3.3. Incorporación de Ausencias
+Las ausencias parciales o totales se restan del total de horas disponibles. Si el consultor está de vacaciones por una semana completa, su disponibilidad será 0 horas. Si tiene un permiso de 2 horas en un día, esa cantidad de tiempo se resta de las horas disponibles ese día o semana.
+
+Ejemplo:
+
+Disponibilidad base: 40 horas.
+Horas asignadas a proyectos: 35 horas.
+Permiso médico: 2 horas (cita médica).
+Disponibilidad restante
+=
+40
+−
+35
+−
+2
+=
+3
+ 
+horas disponibles en la semana
+.
+Disponibilidad restante=40−35−2=3horas disponibles en la semana.
+4. Visualización y Análisis en Power BI
+4.1. Visualización de Disponibilidad por Consultor
+En Power BI, se implementará una tabla o matriz que muestre la disponibilidad de cada consultor por semana, junto con las ausencias registradas, lo que permite a los líderes de proyectos ver fácilmente cuándo los consultores estarán disponibles o ausentes.
+
+Ejemplo de matriz en Power BI:
+
+Consultor	Semana del 14-Oct	Semana del 21-Oct	Semana del 28-Oct
+Consultor X	0 horas (vacaciones)	40 horas	40 horas
+Consultor Y	38 horas (2h cita)	40 horas	40 horas
+Consultor Z	39 horas (1h permiso)	40 horas	40 horas
+4.2. Calendario de Ausencias
+Se puede visualizar un calendario interactivo o un gráfico de Gantt para representar las ausencias de los consultores de manera visual y clara. Cada día o semana con ausencias completas (vacaciones) o parciales (permisos médicos) puede destacarse en colores, facilitando la planificación de recursos.
+
+4.3. Indicadores de Disponibilidad
+Se pueden crear KPIs o indicadores en Power BI para mostrar el total de horas disponibles de cada consultor, permitiendo una visión rápida de cuántas horas quedan disponibles para asignaciones en cada semana.
+
+5. Recomendaciones Finales
+La estructuración propuesta permite un control eficiente de la disponibilidad de los consultores, ya que combina el seguimiento de ausencias con las asignaciones de proyectos y roles, sin necesidad de llevar un registro manual diario. Esta solución también permite identificar de manera proactiva las necesidades de contratación cuando no haya consultores suficientes para cubrir los roles.
+
+La implementación de esta solución en Power BI ofrece a los líderes de proyectos una visión clara y en tiempo real de la disponibilidad del equipo, facilitando la planificación de recursos y la toma de decisiones.
