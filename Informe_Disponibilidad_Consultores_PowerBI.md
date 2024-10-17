@@ -259,3 +259,18 @@ Se pueden crear KPIs o indicadores en Power BI para mostrar el total de horas di
 La estructuración propuesta permite un control eficiente de la disponibilidad de los consultores, ya que combina el seguimiento de ausencias con las asignaciones de proyectos y roles, sin necesidad de llevar un registro manual diario. Esta solución también permite identificar de manera proactiva las necesidades de contratación cuando no haya consultores suficientes para cubrir los roles.
 
 La implementación de esta solución en Power BI ofrece a los líderes de proyectos una visión clara y en tiempo real de la disponibilidad del equipo, facilitando la planificación de recursos y la toma de decisiones.
+
+#### **DAX para el Calendario de Días Laborables con Festivos**:
+
+```DAX
+Dias_Festivos = 
+VAR AnosDisponibles = DISTINCT ( SELECTCOLUMNS ( Calendario, "Año", YEAR ( Calendario[Date] ) ) ) -- Obtenemos los años únicos de la tabla Calendario
+RETURN
+    GENERATE (
+        AnosDisponibles,
+        ADDCOLUMNS (
+            'Festivos',
+            "Fecha Completa", DATE ( VALUE ( [Año] ), 'Festivos'[Mes], 'Festivos'[Dia] ), -- Crea la fecha completa utilizando el año del calendario
+            "Festivo", 'Festivos'[Conmemoración] -- Asigna el nombre del festivo
+        )
+    )
