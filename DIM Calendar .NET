@@ -1,0 +1,48 @@
+[CALENDARIO] =
+VAR MinFecha = MIN('BASE PPTO'[FECHA OC])
+VAR MaxFecha = MAX('BASE PPTO'[FECHA OC])
+RETURN
+ADDCOLUMNS (
+    CALENDAR (
+        IF (ISBLANK(MinFecha), DATE(2024, 1, 1), DATE(YEAR(MinFecha), 1, 1)),
+        IF (ISBLANK(MaxFecha), DATE(2025, 12, 31), DATE(YEAR(MaxFecha), 12, 31))
+    ),
+    "FechaSK", FORMAT([Date], "YYYYMMDD"),
+    "#Año", YEAR([Date]),
+    "#Semestre", IF(MONTH([Date]) <= 6, 1, 2),
+    "#Mes", MONTH([Date]),
+    "#Dia", DAY([Date]),
+    "Semestre", "S" & IF(MONTH([Date]) <= 6, 1, 2),
+    "Trimestre", "T" & IF(MONTH([Date]) <= 3, 1,
+                      IF(MONTH([Date]) <= 6, 2,
+                      IF(MONTH([Date]) <= 9, 3, 4))),
+    "Mes", SWITCH ( MONTH([Date]),
+            1, "ENERO", 2, "FEBRERO", 3, "MARZO", 4, "ABRIL", 
+            5, "MAYO", 6, "JUNIO", 7, "JULIO", 8, "AGOSTO",
+            9, "SEPTIEMBRE", 10, "OCTUBRE", 11, "NOVIEMBRE", 12, "DICIEMBRE"
+    ),
+    "MesCorto", SWITCH ( MONTH([Date]),
+            1, "ENE", 2, "FEB", 3, "MAR", 4, "ABR", 
+            5, "MAY", 6, "JUN", 7, "JUL", 8, "AGO",
+            9, "SEP", 10, "OCT", 11, "NOV", 12, "DIC"
+    ),
+    "#DiaSemana", WEEKDAY([Date], 2),
+    "Dia", SWITCH ( WEEKDAY([Date], 2),
+            1, "LUNES", 2, "MARTES", 3, "MIERCOLES", 
+            4, "JUEVES", 5, "VIERNES", 6, "SABADO", 7, "DOMINGO"
+    ),
+    "DiaCorto", SWITCH ( WEEKDAY([Date], 2),
+            1, "LUN", 2, "MAR", 3, "MIE", 
+            4, "JUE", 5, "VIE", 6, "SAB", 7, "DOM"
+    ),
+    "#SemanaAño", WEEKNUM([Date], 2),
+    "CierreSemana", [Date] + (7 - WEEKDAY([Date], 2)),
+    "AñoSemestre", FORMAT([Date], "YYYY") & "/S" & IF(MONTH([Date]) <= 6, 1, 2),
+    "AñoTrimestre", FORMAT([Date], "YYYY") & "/T" & IF(MONTH([Date]) <= 3, 1,
+                                                      IF(MONTH([Date]) <= 6, 2,
+                                                      IF(MONTH([Date]) <= 9, 3, 4))),
+    "Año#Mes", FORMAT([Date], "YYYY/MM"),
+    "InicioMes", EOMONTH([Date], -1) + 1,
+    "FinMes", EOMONTH([Date], 0),
+    "MesNumero", MONTH([Date])
+)
